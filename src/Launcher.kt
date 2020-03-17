@@ -6,6 +6,7 @@ This is the main launcher window. It houses the program menus and title text.
 
 import java.awt.event.ActionListener
 import javax.swing.*
+import kotlin.system.exitProcess
 
 class Launcher: JFrame() {
     fun launcher() {
@@ -38,7 +39,14 @@ class Launcher: JFrame() {
         // Exit
         val mItemExit = JMenuItem("Exit MorningCoffee")
         // On click, open exit confirm dialog
-        mItemExit.addActionListener{ /* TODO confirmation dialog */ }
+        mItemExit.addActionListener{
+            JDialog.setDefaultLookAndFeelDecorated(true)
+            val response = JOptionPane.showConfirmDialog(null,
+                "Do you want to exit MorningCoffee?", "Exit MorningCoffee", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE)
+            if (response == JOptionPane.YES_OPTION)
+                exitProcess(0)
+        }
         systemMenu.add(mItemExit)
         // Shutdown
         val mItemShutdown = JMenuItem("Shut Down")
