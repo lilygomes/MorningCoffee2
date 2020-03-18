@@ -12,10 +12,10 @@ class Start: JFrame() {
         // Java theme
         setDefaultLookAndFeelDecorated(true)
         Launcher().launcher()
+        setBounds(-10,-10,0,0)
     }
 }
 
 fun main() {
-    val frame = Start()
-    frame.isVisible = true
+    Start()
 }
