@@ -4,16 +4,18 @@ File: Launcher.kt
 This is the main launcher window. It houses the program menus and title text.
  */
 
-import java.awt.event.ActionListener
+import java.io.File
+import java.util.*
 import javax.swing.*
 import kotlin.system.exitProcess
 
-class Launcher: JFrame() {
+class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
     fun launcher() {
         this.isVisible = true
     }
 
     init {
+
         // Java theme
         setDefaultLookAndFeelDecorated(true)
         // Window title
@@ -22,15 +24,14 @@ class Launcher: JFrame() {
         isResizable = false
         // Do nothing when user attempts to close window
         defaultCloseOperation = DO_NOTHING_ON_CLOSE
-        // Set window size
-        setBounds(100, 100, 260, 105)
+        // Set location of window to specified starting position
+        setBounds(prefs[0] as Int, prefs[1] as Int, 260, 105)
 
         // Top menu bar
         val menuBar = JMenuBar()
         jMenuBar = menuBar
         // Applications menu
-        val applicationsMenu = JMenu("Applications")
-        menuBar.add(applicationsMenu)
+        menuBar.add(appMenu)
         // System menu
         val systemMenu = JMenu("System")
         menuBar.add(systemMenu)
