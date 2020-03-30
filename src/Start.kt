@@ -29,9 +29,9 @@ class Start: JFrame() {
         }
         // If mc2/preferences doesn't exist, create it
         catch (e: java.io.FileNotFoundException) {
-            println("~/mc2/preferences not found, generating...")
+            println("mc2/preferences not found, generating...")
             // If user does not have permissions to make a folder, quit
-            if (!File("mc2").exists())
+            if (!Files.isDirectory(Paths.get("mc2")))
                 Files.createDirectory(Paths.get("mc2"))
             val createmc2 = PrintWriter(File("mc2/preferences"))
             createmc2.println(50)
@@ -57,6 +57,7 @@ class Start: JFrame() {
         }
         // If mc2/applications doesn't exist, create it
         catch (e: java.io.FileNotFoundException) {
+            println("mc2/applications not found, generating...")
             val createmc2 = PrintWriter(File("mc2/applications"))
             createmc2.close()
             Scanner(File("mc2/applications"))
