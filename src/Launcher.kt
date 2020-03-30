@@ -4,12 +4,13 @@ File: Launcher.kt
 This is the main launcher window. It houses the program menus and title text.
  */
 
-import java.io.File
-import java.util.*
 import javax.swing.*
 import kotlin.system.exitProcess
 
 class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
+
+    // ProcessBuilder for launching programs
+
     fun launcher() {
         this.isVisible = true
     }

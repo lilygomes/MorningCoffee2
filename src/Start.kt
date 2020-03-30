@@ -2,15 +2,18 @@
 File: Start.kt
 --------------
 This exists to launch Launcher.kt with the Decorated look and feel.
-This file generates the Applications menu from the conf/applications file
+This file generates the Applications menu from the mc2/applications file
 on startup.
 This file also passes the prefs array to Launcher.kt, which contains the
-preferences read from conf/preferences.
+preferences read from mc2/preferences.
  */
 
 
 import java.awt.event.ActionEvent
 import java.io.File
+import java.io.PrintWriter
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.*
 import javax.swing.AbstractAction
 import javax.swing.JFrame
@@ -20,8 +23,22 @@ import javax.swing.JMenuItem
 
 class Start: JFrame() {
     init {
-        // Read the preferences from conf/preferences
-        val prefFile = Scanner(File("conf/preferences"))
+        // Read the preferences from mc2/preferences
+        val prefFile = try {
+            Scanner(File("mc2/preferences"))
+        }
+        // If mc2/preferences doesn't exist, create it
+        catch (e: java.io.FileNotFoundException) {
+            println("~/mc2/preferences not found, generating...")
+            // If user does not have permissions to make a folder, quit
+            if (!File("mc2").exists())
+                Files.createDirectory(Paths.get("mc2"))
+            val createmc2 = PrintWriter(File("mc2/preferences"))
+            createmc2.println(50)
+            createmc2.println(50)
+            createmc2.close()
+            Scanner(File("mc2/preferences"))
+        }
         // Array to store preferences in
         val prefs = Array<Any>(2){}
         /* Indices:
@@ -35,7 +52,15 @@ class Start: JFrame() {
         // "Applications" menu
         val applicationsMenu = JMenu("Applications")
         // Read file for each application
-        val appMenuFile = Scanner(File("conf/applications"))
+        val appMenuFile = try {
+            Scanner(File("mc2/applications"))
+        }
+        // If mc2/applications doesn't exist, create it
+        catch (e: java.io.FileNotFoundException) {
+            val createmc2 = PrintWriter(File("mc2/applications"))
+            createmc2.close()
+            Scanner(File("mc2/applications"))
+        }
         while (appMenuFile.hasNextLine()) {
             /* App file format:
              * Name;command
@@ -49,12 +74,15 @@ class Start: JFrame() {
             }))
         }
 
+        // Close scanners
+        prefFile.close()
+        appMenuFile.close()
         // Java theme
         setDefaultLookAndFeelDecorated(true)
         Launcher(applicationsMenu, prefs).launcher()
     }
 }
 
-fun main() {
+fun main(args: Array<String>) {
     Start()
 }
