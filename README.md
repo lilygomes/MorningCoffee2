@@ -1,6 +1,9 @@
-##MorningCoffee 2
+MorningCoffee 2
+======
 *An awful desktop environment for awful people.*
-###The Applications menu is empty!
+
+## The Applications menu is empty!
+
 That's because you need to add your applications to the menu by modifying the `applications` file in the `mc2` folder.
 On first run, MC2 will generate the `mc2/` folder in the location of the JAR file you're running from, or in the root of the source code project in your IDE.
 To add an item to your menu, add a line in this format:
