@@ -62,17 +62,44 @@ class Start: JFrame() {
             createmc2.close()
             Scanner(File("mc2/applications"))
         }
+        // Create submenus
         while (appMenuFile.hasNextLine()) {
             /* App file format:
-             * Name;command
+             * name;command
+             * submenu;{
+             * name;command
+             * }
+             * name;command
              */
-            val app = appMenuFile.nextLine().split(';')
-            applicationsMenu.add(JMenuItem(object: AbstractAction(app[0]) {
-                // Upon clicking the item, run specified command
-                override fun actionPerformed(e: ActionEvent?) {
-                    Runtime.getRuntime().exec(app[1])
+            var line = appMenuFile.nextLine()
+            var app: List<String>
+            if (line.contains('{')) {
+                // Use the submenu name as all characters before the semicolon
+                val submenu = JMenu(line.split(';')[0])
+                while (appMenuFile.hasNextLine()) {
+                    line = appMenuFile.nextLine()
+                    if (line.contains('}')) {
+                        applicationsMenu.add(submenu)
+                        break
+                    }
+                    app = line.split(';')
+                    submenu.add(JMenuItem(object: AbstractAction(app[0]) {
+                        // Upon clicking the item, run specified command
+                        override fun actionPerformed(e: ActionEvent?) {
+                            Runtime.getRuntime().exec(app[1])
+                        }
+                    }))
                 }
-            }))
+            }
+            else {
+                app = line.split(';')
+                applicationsMenu.add(JMenuItem(object : AbstractAction(app[0]) {
+                    // Upon clicking the item, run specified command
+                    override fun actionPerformed(e: ActionEvent?) {
+                        Runtime.getRuntime().exec(app[1])
+                    }
+                }))
+            }
         }
 
         // Close scanners
