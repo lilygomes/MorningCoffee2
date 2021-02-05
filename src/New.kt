@@ -1,7 +1,7 @@
 /*
 File: New.kt
 --------------
-This is the About window that shows the credits and version number.
+This is the New window that lets the user add a new program to MorningCoffee.
  */
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
