@@ -1,5 +1,5 @@
 /*
-ile: Start.kt
+File: Start.kt
 --------------
 This exists to launch Launcher.kt with the Decorated look and feel.
 This file generates the Applications menu from the mc2/applications file

@@ -46,10 +46,12 @@ class About: JFrame() {
         contentPane.add(lblDeveloper)
 
         // Icon
-        val icoJava = JLabel("")
-        val img = ImageIcon(ImageIO.read(File("img/java-80x80.png")))
-        icoJava.icon = img
-        icoJava.setBounds(270, 36, 80, 80)
-        contentPane.add(icoJava)
+        try {
+            val icoJava = JLabel("")
+            val img = ImageIcon(ImageIO.read(File("img/java-80x80.png")))
+            icoJava.icon = img
+            icoJava.setBounds(270, 36, 80, 80)
+            contentPane.add(icoJava)
+        } catch(e: Exception) {}
     }
 }

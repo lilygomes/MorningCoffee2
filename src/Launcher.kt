@@ -4,6 +4,9 @@ File: Launcher.kt
 This is the main launcher window. It houses the program menus and title text.
  */
 
+
+import java.awt.event.KeyAdapter
+import java.awt.event.KeyEvent
 import javax.swing.AbstractAction
 import javax.swing.JDialog
 import javax.swing.JFrame
@@ -23,7 +26,13 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
     }
 
     init {
-
+        addKeyListener(object : KeyAdapter() {
+            override fun keyPressed(e: KeyEvent) {
+                if (e.keyCode == KeyEvent.VK_Q && e.getModifiers() == 2) {
+                   exitProcess(0)
+                }
+            }
+        })
         // Java theme
         setDefaultLookAndFeelDecorated(true)
         // Window title
@@ -46,7 +55,7 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
 
         // System menu items
         // Exit
-        val mItemExit = JMenuItem("Exit MorningCoffee")
+        val mItemExit = JMenuItem("Exit MorningCoffee (ctrl-q)")
         // On click, open exit confirm dialog
         mItemExit.addActionListener{
             JDialog.setDefaultLookAndFeelDecorated(true)
