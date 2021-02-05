@@ -40,7 +40,7 @@ class About: JFrame() {
         lblVersion.font = Font(lblVersion.font.name, Font.PLAIN, 20)
         contentPane.add(lblVersion)
 
-        val lblDeveloper = JLabel("Designed by frankgomes on GitHub.")
+        val lblDeveloper = JLabel("Designed by lilygomes on GitHub.")
         lblDeveloper.setBounds(12, 92, 260, 24)
         lblVersion.font = Font(lblVersion.font.name, Font.PLAIN, 16)
         contentPane.add(lblDeveloper)

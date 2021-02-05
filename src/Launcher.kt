@@ -4,7 +4,14 @@ File: Launcher.kt
 This is the main launcher window. It houses the program menus and title text.
  */
 
-import javax.swing.*
+import javax.swing.AbstractAction
+import javax.swing.JDialog
+import javax.swing.JFrame
+import javax.swing.JMenu
+import javax.swing.JMenuItem
+import javax.swing.JMenuBar
+import javax.swing.JOptionPane
+import java.lang.ProcessBuilder.Redirect
 import kotlin.system.exitProcess
 
 class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
@@ -61,16 +68,28 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
             if (response == JOptionPane.YES_OPTION) {
                 val os = System.getProperty("os.name").toLowerCase()
                 // Check for Windows
-                if (os.indexOf("win") >= 0)
-                    Runtime.getRuntime().exec("shutdown /s /t 00")
+                if (os.indexOf("win") >= 0) {
+                    val process = ProcessBuilder("shutdown /s /t 00".split(" "))
+                        .redirectOutput(Redirect.INHERIT)
+                        .redirectError(Redirect.INHERIT)
+                        .start()
+                }
                 // Check for macOS
                 // not sure if this actually works, someone please test it
-                else if (os.indexOf("mac") >= 0)
-                    Runtime.getRuntime().exec("osascript -e 'tell app \"System Events\" to shut down'")
+                else if (os.indexOf("mac") >= 0) {
+                    val process = ProcessBuilder("osascript -e 'tell app \"System Events\" to shut down'".split(" "))
+                        .redirectOutput(Redirect.INHERIT)
+                        .redirectError(Redirect.INHERIT)
+                        .start()
+                }
                 // Check for *nix based OSes
                 else if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0
-                    || os.indexOf("sunos") >= 0)
-                    Runtime.getRuntime().exec("poweroff")
+                    || os.indexOf("sunos") >= 0) {
+                    val process = ProcessBuilder("poweroff".split(" "))
+                        .redirectOutput(Redirect.INHERIT)
+                        .redirectError(Redirect.INHERIT)
+                        .start()
+                }
             }
         }
         systemMenu.add(mItemShutdown)
