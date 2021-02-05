@@ -107,5 +107,9 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
         // On click, open About window
         mItemAbout.addActionListener{ About().about() }
         systemMenu.add(mItemAbout)
+
+        val mItemNew = JMenuItem("Add new program to list")
+        mItemNew.addActionListener{ New().new() }
+        systemMenu.add(mItemNew)
     }
 }
