@@ -12,9 +12,10 @@ preferences read from mc2/preferences.
 import java.awt.event.ActionEvent
 import java.io.File
 import java.io.PrintWriter
+import java.lang.ProcessBuilder.Redirect
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.*
+import java.util.Scanner
 import javax.swing.AbstractAction
 import javax.swing.JFrame
 import javax.swing.JMenu
@@ -86,7 +87,10 @@ class Start: JFrame() {
                     submenu.add(JMenuItem(object: AbstractAction(app[0]) {
                         // Upon clicking the item, run specified command
                         override fun actionPerformed(e: ActionEvent?) {
-                            Runtime.getRuntime().exec(app[1])
+                            val process = ProcessBuilder(app[1].split(" "))
+                                .redirectOutput(Redirect.INHERIT)
+                                .redirectError(Redirect.INHERIT)
+                                .start()
                         }
                     }))
                 }
@@ -96,7 +100,10 @@ class Start: JFrame() {
                 applicationsMenu.add(JMenuItem(object : AbstractAction(app[0]) {
                     // Upon clicking the item, run specified command
                     override fun actionPerformed(e: ActionEvent?) {
-                        Runtime.getRuntime().exec(app[1])
+                        val process = ProcessBuilder(app[1].split(" "))
+                            .redirectOutput(Redirect.INHERIT)
+                            .redirectError(Redirect.INHERIT)
+                            .start()
                     }
                 }))
             }

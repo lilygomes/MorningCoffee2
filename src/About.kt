@@ -40,16 +40,18 @@ class About: JFrame() {
         lblVersion.font = Font(lblVersion.font.name, Font.PLAIN, 20)
         contentPane.add(lblVersion)
 
-        val lblDeveloper = JLabel("Designed by frankgomes on GitHub.")
+        val lblDeveloper = JLabel("Designed by lilygomes on GitHub.")
         lblDeveloper.setBounds(12, 92, 260, 24)
         lblVersion.font = Font(lblVersion.font.name, Font.PLAIN, 16)
         contentPane.add(lblDeveloper)
 
         // Icon
-        val icoJava = JLabel("")
-        val img = ImageIcon(ImageIO.read(File("img/java-80x80.png")))
-        icoJava.icon = img
-        icoJava.setBounds(270, 36, 80, 80)
-        contentPane.add(icoJava)
+        try {
+            val icoJava = JLabel("")
+            val img = ImageIcon(ImageIO.read(File("img/java-80x80.png")))
+            icoJava.icon = img
+            icoJava.setBounds(270, 36, 80, 80)
+            contentPane.add(icoJava)
+        } catch(e: Exception) {}
     }
 }
