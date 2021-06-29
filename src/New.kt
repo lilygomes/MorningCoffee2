@@ -35,10 +35,12 @@ class New: JFrame() {
         lblTitle.font = Font(lblTitle.font.name, Font.PLAIN, 28)
         contentPane.add(lblTitle)
 
+        //Input for the text to display for this program in the menu
         val programName = JTextField("Program Name");
         programName.setBounds(12, 59, 124, 27)
         contentPane.add(programName)
-
+    
+        //Input for the command that MC2 should run
         val command = JTextField("Command to run");
         command.setBounds(146, 59, 124, 27)
         contentPane.add(command)
@@ -46,7 +48,7 @@ class New: JFrame() {
         class ButtonClickListener : ActionListener {
            override fun actionPerformed(e: ActionEvent) {
                 if (e.actionCommand == "Submit") {
-                    File("mc2/applications").writeText(programName.getText() + ";" + command.getText())
+                    File("mc2/applications").writeText(programName.getText() + ";" + command.getText()) //append to config file based on inputted information
                 }
             }
         }
