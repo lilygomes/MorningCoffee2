@@ -33,6 +33,14 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
                 }
             }
         })
+        
+        addKeyListener(object : KeyAdapter() {
+            override fun keyPressed(e: KeyEvent) {
+                if (e.keyCode == KeyEvent.VK_N && e.getModifiers() == 2) {
+                   mItemNew.addActionListener{ New().new() }
+                }
+            }
+        })
         // Java theme
         setDefaultLookAndFeelDecorated(true)
         // Window title
@@ -108,7 +116,7 @@ class Launcher(appMenu: JMenu, prefs: Array<Any>) : JFrame() {
         mItemAbout.addActionListener{ About().about() }
         systemMenu.add(mItemAbout)
 
-        val mItemNew = JMenuItem("Add new program to list")
+        val mItemNew = JMenuItem("Add new program to list (ctrl-n)")
         mItemNew.addActionListener{ New().new() }
         systemMenu.add(mItemNew)
     }
